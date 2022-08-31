@@ -54,6 +54,9 @@ return packer.startup(function(use)
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in nvim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used by lots of plugins
 
+  -- color scheme
+  use "lunarvim/darkplus.nvim"
+
   -- Set up our configuration after cloning packer.nvim automatically.
   -- Put this at the end after all plugins.
   if PACKER_BOOTSTRAP then
