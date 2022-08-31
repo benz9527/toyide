@@ -107,6 +107,10 @@ cmp.setup {
                 luasnip = "[Snippet]",
                 buffer = "[Buffer]",
                 path = "[Path]",
+                -- It's important for LSP to do completion tips.
+                -- Please view the ./plugins.lua imported cmp plugin list.
+                nvim_lsp = "[Lsp]",
+                nvim_lua = "[Lua]",
             })[entry.source.name]
             return vim_item
         end,
@@ -115,6 +119,8 @@ cmp.setup {
         { name = "luasnip" },
         { name = "buffer" },
         { name = "path" },
+        { name = "nvim_lsp" },
+        { name = "nvim_lua" },
     },
     confirm_opts = {
         behavior = cmp.ConfirmBehavior.Replace,

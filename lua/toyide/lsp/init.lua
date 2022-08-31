@@ -53,24 +53,33 @@ if not mc_status_ok then
     return
 end
 
+local common_opts = {
+    -- on_attach is default key.
+    on_attach = require("toyide.lsp.handlers").on_attach,
+    -- capabilities is default key.
+    capabilities = require("toyide.lsp.handlers").capabilities,
+}
 mason_cfg.setup({
     automatic_installation = false,
 })
 mason_cfg.setup_handlers {
     -- Called for each installed lsp server.
     function(server_name)
-        local opts = {
-            -- on_attach is default key.
-            on_attach = require("toyide.lsp.handlers").on_attach,
-            -- capabilities is default key.
-            capabilities = require("toyide.lsp.handlers").capabilities,
-        }
-        nvim_lsp[server_name].setup(opts)
+        nvim_lsp[server_name].setup(common_opts)
     end,
     -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
     ["jsonls"] = function ()
-        local  opts = require("toyide.lsp.settings.jsonls")
+        -- :h tbl_deep_extend
+        -- Force to use the right most table values.
+        -- https://github.com/hrsh7th/nvim-cmp enable the completion for this LSP by capabilities.
+        local tmp = require("toyide.lsp.settings.jsonls")
+        local opts = vim.tbl_deep_extend("force", tmp, common_opts)
         nvim_lsp.jsonls.setup(opts)
+    end,
+    ["sumneko_lua"] = function()
+        local tmp = require("toyide.lsp.settings.sumneko_lua")
+        local opts = vim.tbl_deep_extend("force", tmp, common_opts)
+        nvim_lsp.sumneko_lua.setup(opts)
     end,
 }
 

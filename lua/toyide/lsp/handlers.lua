@@ -70,7 +70,7 @@ local function lsp_km(bufnr)
     km("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     km("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     km("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    km("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', otps)
+    km("n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
     km("n", "gl", '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ borderi = "rounded" })<CR>', opts)
     km("n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
     km("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
@@ -91,6 +91,7 @@ M.on_attach = function(client, bufnr)
     lsp_highlight_doc(client)
 end
 
+-- https://github.com/hrsh7th/nvim-cmp enable the completion for this LSP by capabilities.
 local caps = vim.lsp.protocol.make_client_capabilities()
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_ok then
