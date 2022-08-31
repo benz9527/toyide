@@ -1,3 +1,3 @@
-require "plugins.options"
-require "plugins.keymaps"
-require "plugins.thirdparties"
+require "toyide.options"
+require "toyide.keymaps"
+require "toyide.plugins"
