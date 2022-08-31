@@ -39,6 +39,17 @@ km("n", "<C-Right>", ":vertical resize +1<CR>", opts)
 km("n", "H", ":bprevious<CR>", opts)
 km("n", "L", ":bnext<CR>", opts)
 
+-- File search by telescope.
+-- themes: get_dropdown, get_ivy, get_cursor
+-- :Telescope find_files theme=dropdown
+-- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/themes.lua
+-- require('telescope.themes').get_dropdown({previewer = false}) will not show previewer.
+-- require('telescope.themes').get_dropdown() will show the previewer.
+km("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown())<CR>", opts)
+km("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", opts)
+km("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", opts)
+km("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags<CR>", opts)
+
 -- Insert mode as i
 -- Quickly exit the insert mode, useless for me, I like the <ESC>.
 -- km("i", "jk", "<ESC>", opts)
