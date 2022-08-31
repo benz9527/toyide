@@ -66,7 +66,7 @@ return packer.startup(function(use)
 
   -- snippets
   use "L3MON4D3/LuaSnip" -- snippet engine
-  use "rafamadriz/friendly-sinppets"
+  use "rafamadriz/friendly-snippets"
 
   -- Language Server Protocol
   -- https://neovim.io/doc/lsp/
