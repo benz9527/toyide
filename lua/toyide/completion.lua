@@ -21,6 +21,10 @@ end
 -- https://www.nerdfonts.com/cheat-sheet
 -- we have to install nerd fonts before we use.
 -- or we can set up the terminal tools display font.
+-- mkdir -p ~/.local/share/fonts/JetBrainsMono
+-- unzip JetBrainsMono.zip -d ~/.local/share/fonts/JetBrainsMono
+-- fc-cache -vf ~/.local/share/fonts
+-- fc-list | grep -i jetbrains
 local kind_icons = {
     Text = "",
     Method = "m",

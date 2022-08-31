@@ -78,6 +78,12 @@ return packer.startup(function(use)
   use "williamboman/mason.nvim"
   use "williamboman/mason-lspconfig.nvim"
 
+  -- File search and preview
+  use "nvim-telescope/telescope.nvim"
+  -- Install find or ripgrep first.
+  -- https://github.com/BurntSushi/ripgrep
+  use "nvim-telescope/telescope-media-files.nvim"
+
   -- Set up our configuration after cloning packer.nvim automatically.
   -- Put this at the end after all plugins.
   if PACKER_BOOTSTRAP then
