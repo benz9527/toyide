@@ -11,18 +11,16 @@ if not m_status_ok then
 end
 
 mason.setup({
+    -- Open nvim
+    -- :h stdpath()
+    -- :echo stdpath("data")
+    install_root_dir = vim.fn.stdpath "data" .. "/lsp",
+    log_level = vim.log.levels.INFO,
+    max_concurrent_installers = 2,
     ui = {
         check_outdated_package_on_open = true,
         -- https://neovim.io/doc/user/api.html#nvim_open_win()
         border = "rounded",
-        log_level = vim.log.levels.INFO,
-        max_concurrent_installers = 2,
-        -- Open nvim
-        -- :h stdpath()
-        -- :echo stdpath("data")
-        install_root_dir = path.concat {
-            vim.fn.stdpath("data"), "lsp"
-        },
         icons = {
             package_installed = "",
             package_pending = "",
@@ -49,12 +47,6 @@ mason.setup({
     }
 })
 
-local h_status_ok, handlers = pcall(require, "toyide.lsp.handlers")
-if not h_status_ok then
-    return
-end
-handlers.setup()
-
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/mason-lspconfig.txt
 local mc_status_ok, mason_cfg = pcall(require, "mason-lspconfig")
 if not mc_status_ok then
@@ -69,15 +61,17 @@ mason_cfg.setup_handlers {
     function(server_name)
         local opts = {
             -- on_attach is default key.
-            on_attach = handlers.on_attach,
+            on_attach = require("toyide.lsp.handlers").on_attach,
             -- capabilities is default key.
-            capabilities = handlers.capabilities,
+            capabilities = require("toyide.lsp.handlers").capabilities,
         }
         nvim_lsp[server_name].setup(opts)
     end,
     -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
     ["jsonls"] = function ()
         local  opts = require("toyide.lsp.settings.jsonls")
-        require("json-lsp").setup(opts)
+        nvim_lsp.jsonls.setup(opts)
     end,
 }
+
+require("toyide.lsp.handlers").setup()

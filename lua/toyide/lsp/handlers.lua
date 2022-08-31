@@ -62,7 +62,7 @@ local function lsp_highlight_doc(client)
 end
 
 local function lsp_km(bufnr)
-    local function km(...) vim.api.nvim_buf_set_keymap(bufnr, ...)  end
+    local function km(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local opts = { noremap = true, silent = true }
     km("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
     km("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
