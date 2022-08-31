@@ -8,7 +8,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
     "clone",
     "--depth",
     "1",
-    "https://github.91chi.fun/https://github.com/wbthomason/packer.nvim.git",
+    "https://github.com/wbthomason/packer.nvim.git",
     install_path,
   }
   print "Installing packer close and reopen nvim..."
@@ -41,9 +41,10 @@ packer.init {
     cmd = "git",
     depth = 1, -- git clone depth
     clone_timeout = 60,
+    default_url_format = "https://github.com/%s.git",
     -- China mainland dev has to use github mirror site to download. Please choose one of below formats.
     -- default_url_format = "https://github.91chi.fun/https://github.com/%s.git" -- Lua format string used for "aaa/bbb" style plugins
-    default_url_format = "https://hub.fastgit.xyz/%s.git"
+    -- default_url_format = "https://hub.fastgit.xyz/%s.git"
   },
 }
 
