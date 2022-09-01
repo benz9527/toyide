@@ -45,7 +45,7 @@ km("n", "L", ":bnext<CR>", opts)
 -- https://github.com/nvim-telescope/telescope.nvim/blob/master/lua/telescope/themes.lua
 -- require('telescope.themes').get_dropdown({previewer = false}) will not show previewer.
 -- require('telescope.themes').get_dropdown() will show the previewer.
-km("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown())<CR>", opts)
+km("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
 km("n", "<leader>fg", "<cmd>Telescope live_grep<CR>", opts)
 km("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", opts)
 km("n", "<leader>fh", "<cmd>lua require('telescope.builtin').help_tags<CR>", opts)
