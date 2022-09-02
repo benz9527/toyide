@@ -149,11 +149,11 @@ telescope.setup {
         --     find_command = "rg,--ignore,--hidden",
         -- },
         -- Add other telescope plugins.
-        media_files = {
-            -- file type whitelist to show
-            filetypes = { "png", "webp", "jpg", "jpeg" },
-            find_cmd = "rg"
-        },
+        --media_files = {
+        --    -- file type whitelist to show
+        --    filetypes = { "png", "webp", "jpg", "jpeg" },
+        --    find_cmd = "rg"
+        --},
     },
 }
 
@@ -166,4 +166,4 @@ telescope.setup {
 -- sudo apt install fd-find
 -- sudo ln -s /usr/bin/fdfind /usr/bin/fd
 -- lua require('telescope').extensions.media_files.media_files()
-telescope.load_extension("media_files")
+-- telescope.load_extension("media_files")
