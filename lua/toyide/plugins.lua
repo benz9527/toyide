@@ -89,6 +89,10 @@ return packer.startup(function(use)
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   }
+  use {
+    "nvim-treesitter/playground",
+    run = ":TSInstall query",
+  }
 
   -- Set up our configuration after cloning packer.nvim automatically.
   -- Put this at the end after all plugins.
