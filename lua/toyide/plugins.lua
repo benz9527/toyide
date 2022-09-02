@@ -84,6 +84,12 @@ return packer.startup(function(use)
   -- https://github.com/BurntSushi/ripgrep
   --use "nvim-telescope/telescope-media-files.nvim"
 
+  -- Treesitter
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+  }
+
   -- Set up our configuration after cloning packer.nvim automatically.
   -- Put this at the end after all plugins.
   if PACKER_BOOTSTRAP then
