@@ -7,7 +7,7 @@ tree.setup {
     ensure_installed = "all",
     sync_install = false,
     ignore_install = {""},
-    highlint = {
+    highlight = {
         enable = true,
         disable = {""},
         additional_vim_regex_highlighting = false,
