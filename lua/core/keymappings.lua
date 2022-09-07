@@ -142,14 +142,13 @@ M.load_keymappings = function(plugin_name)
 
         for mode, values in pairs(plugin_km_settings) do
             -- :h maparg()
-            local default_opts = merge_tbl("force", { mode = mode_adapters[mode] }, generic_opts[mode])
+            local default_opts = generic_opts[mode]
             for redefined_keybinding, km_info_tbl in pairs(values) do
                 local opts = merge_tbl("force", default_opts, km_info_tbl.opts or {})
                 opts.desc = km_info_tbl.desc
-                vim.keymap.set(mode, redefined_keybinding, km_info_tbl.origin, opts)
+                vim.keymap.set(mode_adapters[mode], redefined_keybinding, km_info_tbl.origin, opts)
             end
         end
-
     end
 
     local mapping = nil
