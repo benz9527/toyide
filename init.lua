@@ -1,5 +1,5 @@
-require("toyide.options")
-require("toyide.keymaps")
+require("toyide.core.options")
+require("toyide.core.keymappings").load_keymappings()
 require("toyide.plugins")
 require("toyide.colorscheme")
 require("toyide.completion")

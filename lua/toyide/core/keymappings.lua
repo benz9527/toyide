@@ -124,6 +124,27 @@ M.km_general = {
     },
 }
 
+M.km_whichkey = {
+    enable = false, -- Indicating enable and first load or not.
+    normal_mode = {
+        ["<leader>wk"] = {
+            origin = function()
+                local inputKey = vim.fn.input "WhichKey: "
+                vim.cmd("WhichKey " .. inputKey)
+            end,
+            desc = "which-key query lookup by input",
+            opts = nil,
+        },
+        ["<leader>WK"] = {
+            origin = function()
+                vim.cmd("WhichKey")
+            end,
+            desc = "which-key display all keymaps",
+            opts = nil,
+        },
+    },
+}
+
 -- functions
 
 local merge_tbl = vim.tbl_deep_extend
