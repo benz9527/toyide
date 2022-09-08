@@ -1,4 +1,8 @@
 local M = {}
+-- noremap means only map key for once (one level)
+-- example: a -> b -> c, if noremap is true, press a eq to press b; otherwise, pres a eq to press c.
+-- silent option will not be echoed on the command line.
+-- :h :map-<silent>
 local generic_opts_any = { noremap = true, silent = true }
 
 -- The doc about vim.keymap and vim.api.nvim_set_keymap
@@ -56,10 +60,11 @@ M.km_general = {
         ["<C-e>"] = { origin = "<End>", desc = "end of line", opts = nil, },
         -- Other navigations.
         -- <Left>, <Right>, <Down>, <Up>
-        ["<C-j>"] = { origin = "<C-\\><C-N><C-w>j<ESC>i", desc = "switch to bottom window", opts = nil, },
-        ["<C-k>"] = { origin = "<C-\\><C-N><C-w>k<ESC>i", desc=  "switch to upper window", opts = nil, },
-        ["<C-h>"] = { origin = "<C-\\><C-N><C-w>h<ESC>i", desc = "switch to left window", opts = nil, },
-        ["<C-l>"] = { origin = "<C-\\><C-N><C-w>l<ESC>i", desc = "switch to right window", opts = nil, },
+        -- Window navigations. Mobaxterm will have no effect on below shortcuts.
+        ["<C-j>"] = { origin = "<ESC><C-w>ja", desc = "switch to bottom window", opts = nil, },
+        ["<C-k>"] = { origin = "<ESC><C-w>ka", desc=  "switch to upper window", opts = nil, },
+        ["<C-h>"] = { origin = "<ESC><C-w>ha", desc = "switch to left window", opts = nil, },
+        ["<C-l>"] = { origin = "<ESC><C-w>la", desc = "switch to right window", opts = nil, },
 
         -- Move current line/block.
         -- TODO(Ben) how to keep indent?
@@ -101,6 +106,9 @@ M.km_general = {
         ["<A-Down>"] = { origin = "<cmd>move .+1<CR>==", desc = "move current line/block down", opts = nil, },
     },
     terminal_mode = {
+        -- <C-\\><C-N> only works for terminal mode, it used to exit terminal mode.
+        -- :h terminal
+        -- :tnoremap <Esc> <C-\\><C-N>
         ["<C-j>"] = { origin = "<C-\\><C-N><C-w>j", desc = "switch to bottom terminal window", opts = nil, },
         ["<C-k>"] = { origin = "<C-\\><C-N><C-w>k", desc = "switch to upper terminal window", opts = nil, },
         ["<C-h>"] = { origin = "<C-\\><C-N><C-w>h", desc = "switch to left terminal window", opts = nil, },
@@ -119,8 +127,9 @@ M.km_general = {
     },
     command_mode = {
         -- Tab completion items navigation. Replace the <Tab> as down and <S-Tab> as up.
-        ["<C-j>"] = { origin = 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', desc = "select the next item", opts = nil, },
-        ["<C-k>"] = { origin = 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', desc = "select the previous item", opts = nil, },
+        -- <Up> & <Down> in command mode is used to lookup history.
+        ["<C-j>"] = { origin = 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', desc = "select the next item", opts = { expr = true, noremap = true, }, },
+        ["<C-k>"] = { origin = 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', desc = "select the previous item", opts = { expr = true, noremap = true, }, },
     },
 }
 
@@ -163,9 +172,11 @@ M.load_keymappings = function(plugin_name)
 
         for mode, values in pairs(plugin_km_settings) do
             -- :h maparg()
-            local default_opts = generic_opts[mode]
+            local opts = generic_opts[mode]
             for redefined_keybinding, km_info_tbl in pairs(values) do
-                local opts = merge_tbl("force", default_opts, km_info_tbl.opts or {})
+                if km_info_tbl.opts then
+                    opts = km_info_tbl.opts
+                end
                 opts.desc = km_info_tbl.desc
                 vim.keymap.set(mode_adapters[mode], redefined_keybinding, km_info_tbl.origin, opts)
             end
