@@ -83,6 +83,7 @@ M.km_general = {
         ["<Up>"] = { origin = 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', desc = "move upward ignore wrapped line", opts = { expr = true }, },
 
         -- Switch between windows.
+        -- <C-j> has alias <NL> "new line".
         ["<C-j>"] = { origin = "<C-w>j", desc = "switch to bottom window", opts = nil, },
         ["<C-k>"] = { origin = "<C-w>k", desc = "switch to upper window", opts = nil, },
         ["<C-h>"] = { origin = "<C-w>h", desc = "switch to left window", opts = nil, },
@@ -91,7 +92,7 @@ M.km_general = {
         -- Quickly flush buffer changes into file.
         ["<C-s>"] = { origin = "<cmd>w<CR>", desc = "save file", opts = nil, },
 
-        -- Copy all
+        -- Copy all.
         ["<C-a>c"] = { origin = "<cmd>%y+<CR>", desc = "copy whole file content", opts = nil, },
 
         -- Resize the current window.
@@ -138,8 +139,12 @@ M.km_whichkey = {
     normal_mode = {
         ["<leader>wk"] = {
             origin = function()
-                local inputKey = vim.fn.input "WhichKey: "
-                vim.cmd("WhichKey " .. inputKey)
+                local input_key = vim.fn.input "WhichKey: "
+                -- ignore <ESC> or other empty input to make errors.
+                if type(input_key) == "nil" or string.match(input_key, "^%s+$") == input_key then
+                    return
+                end
+                vim.cmd("WhichKey " .. input_key)
             end,
             desc = "which-key query lookup by input",
             opts = nil,
@@ -155,10 +160,7 @@ M.km_whichkey = {
 }
 
 -- functions
-
-local merge_tbl = vim.tbl_deep_extend
-
-M.load_keymappings = function(plugin_name)
+function M.load_keymappings(plugin_name)
     local function set_plugin_km(plugin_km_settings)
         -- Skipping reload.
         -- Skipping unloaded plugin keymap setting.
@@ -187,10 +189,20 @@ M.load_keymappings = function(plugin_name)
     if type(plugin_name) == "nil" or string.match(plugin_name, "^%s+$") == plugin_name then
         mapping = M.km_general
     else
-        mapping = M[plugin_name]
+        mapping = M["km_" .. plugin_name]
     end
 
     set_plugin_km(mapping)
+end
+
+function M.plugin_enable_and_load_km(plugin_name)
+    if type(plugin_name) == "nil" or string.match(plugin_name, "^%s+$") == plugin_name then
+        return
+    end
+
+    local mapping = M["km_" .. plugin_name]
+    mapping.enable = true
+    M.load_keymappings(plugin_name)
 end
 
 return M

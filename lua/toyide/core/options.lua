@@ -76,7 +76,8 @@ opt.sidescrolloff = 8
 -- Font
 -- Using Neovim inside a terminal, we have to change the font of
 -- out terminal application.
-if exists(":GuiFont") then
+-- https://neovim.io/doc/user/builtin.html#exists()
+if vim.fn.exists(":GuiFont") then
     opt.guifont = "JetBrains Mono Extra Bold Nerd Font Complete Mono:h16"
 end
 
