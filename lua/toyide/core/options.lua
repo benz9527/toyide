@@ -74,7 +74,11 @@ opt.scrolloff = 8
 opt.sidescrolloff = 8
 
 -- Font
-opt.guifont = "JetBrains Mono Extra Bold Nerd Font Complete Mono:h16"
+-- Using Neovim inside a terminal, we have to change the font of
+-- out terminal application.
+if exists(":GuiFont") then
+    opt.guifont = "JetBrains Mono Extra Bold Nerd Font Complete Mono:h16"
+end
 
 -- Wrap
 opt.wrap = false				-- one line soft wrap
