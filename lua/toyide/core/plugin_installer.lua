@@ -18,9 +18,9 @@ end
 -- Packer init options
 -- https://github.com/wbthomason/packer.nvim
 local options = {
-    -- package_root = join_paths(get_runtime_dir(), "site", "pack"),
-    -- compile_path = compile_path,
-    -- snapshot_path = snapshot_path,
+    package_root = join_paths(get_runtime_dir(), "site", "pack"),
+    compile_path = compile_path,
+    snapshot_path = snapshot_path,
     max_jobs = 20,
     log = {
         level = "warn",
