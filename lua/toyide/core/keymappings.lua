@@ -139,12 +139,13 @@ M.km_whichkey = {
     normal_mode = {
         ["<leader>wk"] = {
             origin = function()
-                local input_key = vim.fn.input "WhichKey: "
                 -- ignore <ESC> or other empty input to make errors.
-                if type(input_key) == "nil" or string.match(input_key, "^%s+$") == input_key then
-                    return
-                end
-                vim.cmd("WhichKey " .. input_key)
+                safe_input({ prompt = "WhichKey: ", }, function(input_key)
+                    if type(input_key) == "nil" or input_key == '' then
+                        return
+                    end
+                    vim.cmd("WhichKey " .. input_key)
+                end)
             end,
             desc = "which-key query lookup by input",
             opts = nil,
