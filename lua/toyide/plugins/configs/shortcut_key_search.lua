@@ -37,6 +37,11 @@ local options = {
         i = { "j", "k", },
         v = { "j", "k", },
     },
+
+    triggers = {
+        "<leader>",
+    },
 }
 
+-- whichkey register
 wk.setup(options)

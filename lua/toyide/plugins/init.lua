@@ -3,6 +3,8 @@ local core_plugins = {
     ["folke/which-key.nvim"] = {
         disable = false,
         module = "which-key",
+        -- whichkey is already lazy loaded. Until we press the <leader> key it will never be loaded.
+        -- https://github.com/folke/which-key.nvim/issues/102
         keys = "<leader>",
         config = function()
             require("toyide.plugins.configs.shortcut_key_search")
