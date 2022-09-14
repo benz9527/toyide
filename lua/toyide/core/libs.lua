@@ -21,6 +21,40 @@ function _G.get_cache_dir()
     return vim.call("stdpath", "cache")
 end
 
+-- vim.fn.input with <ESC> <CR> <C-c>
+-- https://github.com/neovim/neovim/issues/18144
+-- https://github.com/neovim/neovim/issues/18143
+-- https://github.com/neovim/neovim/blob/6e6f5a783333d1bf9d6c719c896e72ac82e1ae54/runtime/lua/vim/ui.lua#L85-L97
+local input_ns_id = vim.api.nvim_create_namespace('')
+
+function _G.safe_input(opts, on_confirm)
+    vim.validate {
+        otps = { opts, 'table', true, },
+        on_confirm = { on_confirm, 'function', false, },
+    }
+
+    -- By temporary listener to distinguish between <ESC> and empty string.
+    local cancelled = false
+    vim.on_key(function(key)
+        if key == vim.api.nvim_replace_termcodes('<ESC>', true, true, true) then
+            cancelled = true
+        end
+    end, input_ns_id)
+
+    if opts == nil or vim.tbl_isempty(opts) then
+        opts = vim.empty_dict()
+    end
+    -- Use pcall to allow cancelling with <C-c>.
+    local ok, input = pcall(vim.fn.input, opts)
+    -- Stop listener.
+    vim.on_key(nil, input_ns_id)
+    if not ok or cancelled then
+        on_confirm(nil)
+    else
+        on_confirm(input)
+    end
+end
+
 local M = {}
 
 function M.is_dir(path)
