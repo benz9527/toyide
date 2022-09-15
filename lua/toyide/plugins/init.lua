@@ -4,4 +4,6 @@ if not is_present then
 end
 require("toyide.plugins.configs.shortcut_key_search")
 
+require("toyide.plugins.configs.popup_notify")
+
 require("toyide.core.plugin_installer").install(plg_core.get_enable_plugins())

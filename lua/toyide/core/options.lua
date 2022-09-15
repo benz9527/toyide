@@ -48,6 +48,7 @@ opt.winblend = 20               -- float window transparent value
 opt.foldenable = false
 opt.hidden = true
 opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
+opt.termguicolors = true        -- opacity need 24bit true color support
 
 -- Status line
 opt.cmdheight = 1 				-- for nvim to display messages
