@@ -18,7 +18,7 @@ local opt = vim.opt
 opt.completeopt = {"menuone", "noselect"}	-- mostly just for cmp
 
 -- Clipboard
-opt.clipboard = "unnamedplus" 		-- allows nvim to access the system clipboard
+opt.clipboard = "unnamedplus" 	-- allows nvim to access the system clipboard
 
 -- Search
 opt.hlsearch = true				-- highlight all matches on previous search pattern
@@ -32,16 +32,22 @@ opt.timeoutlen = 1000			-- time to wait for a mapped sequence to complete (in mi
 opt.undofile = true
 opt.updatetime = 300			-- faster completion (default 4k ms)
 opt.writebackup = false			-- disable multiple program write a file concurrently
+opt.spelllang = 'en_us'
 
 -- Mouse
 opt.mouse = "a" 				-- allow the mouse as usable in nvim
 
 -- Windows
 opt.title = true
-opt.pumheight = 10				-- pop up menu height
+opt.titlestring = '%F'
+opt.pumheight = 10				-- pop up menu height (i.e. item numbers)
 opt.splitbelow = true			-- force all horizontal splits to go below current window
 opt.splitright = true			-- force all vertical splits to go to the right of current window
 opt.shortmess:append "sI"       -- disable nvim intro
+opt.winblend = 20               -- float window transparent value
+opt.foldenable = false
+opt.hidden = true
+opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
 
 -- Status line
 opt.cmdheight = 1 				-- for nvim to display messages
@@ -50,12 +56,17 @@ opt.laststatus = 3
 
 -- Indent
 opt.expandtab = true			-- convert tabs into space
-opt.shiftwidth = 2				-- the number of spaces inserteed for each indentation
+opt.shiftwidth = 4				-- the number of spaces inserted for each indentation
 opt.smartindent = true
-opt.tabstop = 2				    -- insert 2 spaces for a tab
-opt.softtabstop = 2
+opt.autoindent = true
+opt.tabstop = 4				    -- insert 4 spaces for a tab
+opt.softtabstop = 4
 opt.fillchars = { eob = " " }
 opt.showtabline = 2				-- always show tabs
+opt.shiftround = true
+opt.list = true
+opt.listchars = 'tab:→ ,eol:↴,nbsp:⣿,extends:»,precedes:«,trail:·' --,space:␣'
+opt.fillchars = 'eob: '
 
 -- Case
 opt.ignorecase = true			-- case insensitive for search
@@ -67,9 +78,10 @@ opt.relativenumber = false
 opt.numberwidth = 2				-- default 4
 opt.ruler = false
 opt.cursorline = true			-- highlight the current line
+opt.linebreak = true
 
 -- Scroll
-opt.signcolumn = "yes"			-- always show the sign column, otherwise it would shift the text each time
+opt.signcolumn = "yes:1"		-- always show the sign column, otherwise it would shift the text each time
 opt.scrolloff = 8
 opt.sidescrolloff = 8
 
