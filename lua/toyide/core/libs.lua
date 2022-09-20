@@ -6,9 +6,8 @@ function _G.join_paths(...)
     return result
 end
 
--- nvim :echo stdpath("data")
-
 function _G.get_runtime_dir()
+    ---@docs nvim :echo stdpath("data")
     -- default vim.fn.stdpath("data") is `/path/to/usr/home/.local/share/nvim`
     return vim.call("stdpath", "data")
 end

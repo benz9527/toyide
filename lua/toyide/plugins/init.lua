@@ -8,4 +8,6 @@ require("toyide.plugins.configs.popup_notify")
 
 require("toyide.plugins.configs.ide_dashboard")
 
+require("toyide.plugins.configs.lsp_installer")
+
 require("toyide.core.plugin_installer").install(plg_core.get_enable_plugins())

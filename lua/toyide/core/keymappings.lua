@@ -160,6 +160,27 @@ M.km_whichkey = {
     },
 }
 
+M.km_mason_lspconfig = {
+    enable = false,
+    normal_mode = {
+        ["gD"] = { origin = "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "goto the declaration", opts = nil, },
+        ["gd"] = { origin = "<cmd>lua vim.lsp.bug.definition()<CR>", desc = "goto the definition", opts = nil, },
+        ["K"] = { origin = "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "hover", opts = nil, },
+        ["gi"] = { origin = "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "goto the implementation", opts = nil, },
+        ["<C-k>"] = { origin = "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "show signature help info", opts = nil, },
+        ["gr"] = { origin = "<cmd>lua vim.lsp.buf.references()<CR>", desc = "goto the references", opts = nil, },
+        ["[d"] = { origin = [[<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>]], desc = "goto previous item", opts = nil, },
+        ["]d"] = { origin = [[<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>]], desc = "goto next item", opts = nil, },
+        ["gl"] = { origin = [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>]], desc = "show line diagnostic", opts = nil, },
+        ["<leader>q"] = { origin = [[<cmd>lua vim.diagnostic.setloclist()<CR>]], desc = "diagnostic set loc list", opts = nil, },
+        ["<leader>wa"] = { origin = [[<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>]], desc = "add workspace folder", opts = nil, },
+        ["<leader>wr"] = { origin = [[<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>]], desc = "remove workspace folder", opts = nil, },
+        ["<leader>wl"] = { origin = [[<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>]], desc = "print workspace folders", opts = nil, },
+        ["<leader>D"] = { origin = [[<cmd>lua vim.lsp.buf.type_definition()<CR>]], desc = "type definition", opts = nil, },
+        ["<leader>rn"] = { origin = [[<cmd>lua vim.lsp.buf.rename()<CR>]], desc = "rename", opts = nil, },
+    },
+}
+
 -- functions
 function M.load_keymappings(plugin_name)
     local function set_plugin_km(plugin_km_settings)
